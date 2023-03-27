@@ -90,16 +90,16 @@ keywords: A list of keywords that describe the policy, such as "kubernetes", "ky
 Here's an example of how you might fill out the metadata for the enforce-namespace-labels policy:
 
 ```
+---
 version: 1
 name: enforce-namespace-labels
-displayName: Enforce Namespace Labels
-description: This policy ensures that all namespaces have certain labels.
+description: "This policy ensures that all namespaces have certain labels."
 maintainers:
-  - name: John Doe
-    email: john.doe@example.com
+  - name: Haoyu Guo
+    email: haoyuguo@usc.edu
 links:
-  - name: GitHub
-    url: https://github.com/example/repo
+  - name: Github
+    url: https://github.com/guohaoyu110/kyverno_to_artifacthub
 categories:
   - Security
   - Compliance
@@ -120,71 +120,60 @@ Before publishing the policy, it's a good idea to validate the metadata using th
 
 To validate the metadata in the artifacthub.yml file, you can use the artifacthub validate command. Here's how:
 
-1. Open a terminal or command prompt.
-
-2. Change to the directory containing your Kyverno policy and artifacthub.yml file.
-
-3. Run the following command to validate the metadata:
-
 ```
-artifacthub validate
+yamllint artifacthub.yml
 ```
+```
+yamllint enforce-namespace-labels.yaml
+```
+
 
 This command will check the syntax of the artifacthub.yml file and ensure that it contains all the required fields. If there are any errors, the command will display an error message explaining what's wrong. If there are no errors, the command will display a message indicating that the metadata is valid.
 
-For example, if the metadata in artifacthub.yml for enforce-namespace-labels policy is valid, the artifacthub validate command will output a message similar to this:
-
-```
-The metadata file passed validation.
-```
-If there are errors, the artifacthub validate command will output an error message explaining what's wrong with the metadata. You can then go back to the artifacthub.yml file and fix the errors before proceeding with the publishing step.
 
 # 5. Publish the policy: 
-Once you're satisfied with the metadata, you can publish the policy to Artifact Hub using the artifacthub push command. This command uploads the policy and its metadata to Artifact Hub and makes it available for others to discover and use.
 
-To publish your Kyverno policy and its metadata to Artifact Hub, you can use the artifacthub push command. Here's how:
-
-1. Open a terminal or command prompt.
-
-2. Change to the directory containing your Kyverno policy and artifacthub.yml file.
-
-3. Run the following command to push the policy to Artifact Hub:
+Create a Helm chart for your policy. A Helm chart is a collection of files that describe a related set of Kubernetes resources. You can use the Helm CLI tool to create a new chart:
 
 ```
-artifacthub push <image> --provider <provider>
-```
-
-In this command, replace <image> with the image name you want to use for your policy, and <provider> with your Artifact Hub provider name. For example, you might use:
+helm create kyverno-policies
 
 ```
-artifacthub push kyverno/policy/enforce-namespace-labels:v1.0.0 --provider example
+This command will generate a new directory named `kyverno-policies` with the following structure:
+```
+kyverno-policies/
+├── charts/
+├── Chart.yaml
+├── .helmignore
+├── templates/
+│   ├── NOTES.txt
+│   ├── _helpers.tpl
+│   ├── deployment.yaml
+│   ├── ingress.yaml
+│   ├── service.yaml
+│   ├── serviceaccount.yaml
+│   └── tests/
+│       └── test-connection.yaml
+└── values.yaml
+
 ```
 
-Here, kyverno/policy/enforce-namespace-labels:v1.0.0 is the image name for your policy, and example is the name of your Artifact Hub provider. You can use any image name and provider name that you like.
+replace the `kyverno-policies/templates` directory with the Kyverno policy YAML file. I can remove the existing files. 
 
-4. If this is your first time publishing to Artifact Hub, you will be prompted to log in with your Artifact Hub account credentials. Follow the prompts to log in.
+Update the kyverno-policies/Chart.yaml file with the relevant information about your policy. Here's a basic example:
 
-5. After logging in, the artifacthub push command will upload your Kyverno policy and its metadata to Artifact Hub. The command will output progress messages as it works, and it will eventually display a message indicating that the upload was successful.
+```
+apiVersion: v2
+name: kyverno-policies
+description: A Helm chart for Kubernetes to deploy Kyverno policies
+type: application
+version: 0.1.0
+appVersion: "1.0"
+```
+make sure the `artifacthub.yml` file is in the `kyverno-policies` directory.
 
-6. Your Kyverno policy and its metadata are now available on Artifact Hub for others to discover and use. You can verify that your policy is published by searching for it on Artifact Hub using the web UI or API.
 
-Note that once you publish a policy to Artifact Hub, you can update the policy and its metadata by making changes to your Kyverno policy and artifacthub.yml file, and then running the artifacthub push command again. This will update the policy on Artifact Hub with the new metadata and policy contents.
+
 
 # 6. Verify the publication: 
 After publishing the policy, you can verify that it's available on Artifact Hub by searching for it using the web UI or API. You should be able to see the policy's metadata, including its name, description, and other fields.
-
-To verify that your policy is published on Artifact Hub, you can search for it using the web UI or API. Here's how to do it using the web UI:
-
-1. Open a web browser and go to the Artifact Hub website at https://artifacthub.io/.
-
-2. In the search bar at the top of the page, enter the name of your policy or a keyword related to it.
-
-3. Press the "Enter" key or click the search icon to perform the search.
-
-4. The search results page will display a list of policies that match your search. Look for your policy in the list and click on its name or thumbnail image to view its details page.
-
-5. On the details page, you should see the metadata for your policy, including its name, description, version, maintainers, categories, license, keywords, and links. You can also see the YAML code for your policy and any other information related to it.
-
-If your policy is not appearing in the search results, it may take some time for Artifact Hub to index the policy after publishing it. You can try the search again later, or you can verify that the artifacthub.yml file and image name you used are correct.
-
-Note that you can also search for policies using the Artifact Hub API. The API allows you to programmatically search for policies, retrieve their metadata, and download their YAML code. You can find more information about the API in the Artifact Hub documentation.
