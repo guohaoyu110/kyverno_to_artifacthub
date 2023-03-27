@@ -1,5 +1,6 @@
+---
 version: 1
-name: enforce-namespace-labels 
+name: enforce-namespace-labels
 description: "This policy ensures that all namespaces have certain labels."
 maintainers:
   - name: Haoyu Guo
@@ -11,16 +12,9 @@ categories:
   - Security
   - Compliance
   - Best Practices
-
 license: Apache-2.0
 keywords:
-  - kubernetes 
-  - kyverno 
-  - policy 
-  - namespace  
-
-# this is metadata for the policy  and is now ready to be included in the same directory as your kyverno policy. 
-
-# you can fill out the metadata fields with appropriate information as per your policy. 
-
-# This is the policy that will be enforced by Kyverno
+  - kubernetes
+  - kyverno
+  - policy
+  - namespace
