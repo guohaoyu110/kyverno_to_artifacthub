@@ -1,0 +1,26 @@
+version: 1
+name: enforce-namespace-labels 
+description: "This policy ensures that all namespaces have certain labels."
+maintainers:
+  - name: Haoyu Guo
+    email: haoyuguo@usc.edu
+links:
+  - name: Github
+    url: https://github.com/guohaoyu110/kyverno_to_artifacthub
+categories:
+  - Security
+  - Compliance
+  - Best Practices
+
+license: Apache-2.0
+keywords:
+  - kubernetes 
+  - kyverno 
+  - policy 
+  - namespace  
+
+# this is metadata for the policy  and is now ready to be included in the same directory as your kyverno policy. 
+
+# you can fill out the metadata fields with appropriate information as per your policy. 
+
+# This is the policy that will be enforced by Kyverno
