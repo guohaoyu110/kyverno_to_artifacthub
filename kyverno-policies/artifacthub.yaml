@@ -1,6 +1,7 @@
 ---
 version: 1
 name: enforce-namespace-labels
+repositoryID: 3fd884b0-e233-4dae-a46b-106e42dc2a57
 description: "This policy ensures that all namespaces have certain labels."
 maintainers:
   - name: Haoyu Guo
