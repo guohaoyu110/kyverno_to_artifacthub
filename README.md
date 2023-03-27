@@ -42,30 +42,6 @@ To create a metadata file artifacthub.yml in the root directory of your Kyverno 
 
 - Create a new file and name it artifacthub.yml.
 
-- In the file, write the YAML code for the metadata. Here's an example of what the file might look like:
-```
-version: 1
-name: enforce-namespace-labels
-displayName: Enforce Namespace Labels
-description: This policy ensures that all namespaces have certain labels.
-maintainers:
-  - name: John Doe
-    email: john.doe@example.com
-links:
-  - name: GitHub
-    url: https://github.com/example/repo
-categories:
-  - Security
-  - Compliance
-  - Best Practices
-license: Apache-2.0
-keywords:
-  - kubernetes
-  - kyverno
-  - policy
-  - namespace
-
-```
 - Save the file.
 Your metadata file artifacthub.yml is now ready to be included in the same directory as your Kyverno policy. You can fill out the metadata fields with appropriate information as per your policy.
 
